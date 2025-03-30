@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeSurf - AI-Powered Cybersecurity Awareness Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="light-theme">
+    <header>
+        <div class="logo-container">
+            <i class="fas fa-shield-alt"></i>
+            <h1>SafeSurf</h1>
+            <span class="subtitle">AI-Powered Cybersecurity Awareness</span>
+        </div>
+        <div class="theme-toggle-container">
+            <span class="theme-label light"><i class="fas fa-sun"></i></span>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider round"></span>
+            </label>
+            <span class="theme-label dark"><i class="fas fa-moon"></i></span>
+        </div>
+    </header>
+
+    <main>
+        <div class="dashboard-grid">
+            <!-- Phishing Risk Checker -->
+            <section class="card" id="phishing-checker">
+                <div class="card-header">
+                    <i class="fas fa-search"></i>
+                    <h2>Phishing Risk Checker</h2>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">Check if a URL is potentially malicious</p>
+                    <form id="phishing-form">
+                        <div class="input-group">
+                            <input type="url" id="url-input" placeholder="Enter URL (e.g., https://example.com)" required>
+                            <button type="submit" id="check-button">Check URL</button>
+                        </div>
+                    </form>
+                    <div id="phishing-results" class="hidden">
+                        <div class="result-header">
+                            <h3>Risk Assessment</h3>
+                            <span id="risk-level" class="badge">Low Risk</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-label">
+                                <span>Risk Score</span>
+                                <span id="risk-score">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="risk-indicator" class="progress-fill"></div>
+                            </div>
+                            <div class="progress-scale">                                                               
+                                <span>Dangerous</span>
+                                <span>Suspicious</span>
+                                <span>Safe</span>
+                            </div>
+                        </div>
+                        <div id="risk-details" class="details-box">
+                            <h4 id="risk-summary">This URL appears to be safe</h4>
+                            <ul id="risk-factors"></ul>
+                        </div>
+                    </div>
+                    <div id="phishing-loader" class="loader-container hidden">
+                        <div class="loader"></div>
+                        <p>Analyzing URL security...</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small>Always verify URLs before entering sensitive information</small>
+                </div>
+            </section>
+
+            <!-- Password Strength Meter -->
+            <section class="card" id="password-meter">
+                <div class="card-header">
+                    <i class="fas fa-lock"></i>
+                    <h2>Password Strength Meter</h2>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">Test the strength of your password</p>
+                    <div class="input-group">
+                        <input type="password" id="password-input" placeholder="Enter a password to test">
+                        <button type="button" id="toggle-password" class="icon-button">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="strength-meter">
+                        <div class="strength-label">
+                            <span>Strength:</span>
+                            <span id="strength-text">None</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="strength-indicator" class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div id="password-feedback" class="feedback-container">
+                        <h4>Password Requirements:</h4>
+                        <ul>
+                            <li id="length-check" class="requirement">At least 8 characters</li>
+                            <li id="uppercase-check" class="requirement">Contains uppercase letters</li>
+                            <li id="lowercase-check" class="requirement">Contains lowercase letters</li>
+                            <li id="number-check" class="requirement">Contains numbers</li>
+                            <li id="special-check" class="requirement">Contains special characters</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small>Your password is never stored or transmitted from this page</small>
+                </div>
+            </section>
+
+            <!-- Cyber Habits Score -->
+            <section class="card" id="habits-score">
+                <div class="card-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>Cyber Habits Score</h2>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">Assess your cybersecurity practices</p>
+                    <div id="habits-quiz" class="quiz-container">
+                        <div id="quiz-progress" class="progress-container">
+                            <div class="progress-label">
+                                <span id="question-counter">Question 1 of 5</span>
+                                <span id="quiz-percentage">20%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="quiz-progress-indicator" class="progress-fill" style="width: 20%"></div>
+                            </div>
+                        </div>
+                        <div id="question-container">
+                            <h3 id="question-text">How often do you update your passwords?</h3>
+                            <div class="options-container" id="options-container">
+                                <!-- Options will be inserted by JavaScript -->
+                            </div>
+                        </div>
+                        <button id="next-question" class="button-primary" disabled>Next Question</button>
+                    </div>
+                    <div id="habits-results" class="results-container hidden">
+                        <h3>Your Cyber Habits Score</h3>
+                        <div class="score-circle">
+                            <svg viewBox="0 0 36 36" class="circular-chart">
+                                <path class="circle-bg" d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="score-circle" class="circle" stroke-dasharray="0, 100" d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <text x="18" y="20.35" class="score-text" id="habits-score-value">0%</text>
+                            </svg>
+                            <span id="score-rating" class="score-rating">Needs Improvement</span>
+                        </div>
+                        <div id="habits-recommendations" class="recommendations-box">
+                            <h4>Recommendations:</h4>
+                            <ul id="recommendations-list">
+                                <!-- Recommendations will be inserted by JavaScript -->
+                            </ul>
+                        </div>
+                        <button id="restart-quiz" class="button-secondary">Retake Assessment</button>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small>Good cyber habits are essential for online safety</small>
+                </div>
+            </section>
+
+            <!-- Cyber Hygiene Tips -->
+            <section class="card" id="cyber-tips">
+                <div class="card-header">
+                    <i class="fas fa-lightbulb"></i>
+                    <h2>Cyber Hygiene Tips</h2>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">Essential practices for staying safe online</p>
+                    <div class="tips-carousel">
+                        <button id="prev-tip" class="carousel-button prev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="carousel-container">
+                            <div id="tips-slider" class="carousel-slider">
+                                <!-- Tips will be inserted by JavaScript -->
+                            </div>
+                        </div>
+                        <button id="next-tip" class="carousel-button next">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="carousel-indicators" id="tip-indicators">
+                        <!-- Indicators will be inserted by JavaScript -->
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small>Stay informed about the latest cybersecurity threats and best practices</small>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 SafeSurf - AI-Powered Cybersecurity Awareness Dashboard</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
